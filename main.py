@@ -5,9 +5,7 @@ from datetime import MAXYEAR, MINYEAR, datetime, timedelta
 import database
 
 load_dotenv()
-# Discord token goes here
 TOKEN = os.getenv('DISCORD_TOKEN')
-PERMITTED_ROLE_ID = int(os.getenv('PERMITTED_ROLE_ID'))
 
 
 class MyClient(discord.Client):
@@ -27,6 +25,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 client = MyClient(intents=intents)
 tree = discord.app_commands.CommandTree(client)
+
 
 
 @tree.command(name = 'create_jam', description = 'Create a new game jam reminder')
@@ -54,6 +53,51 @@ async def create_jam(
     date = datetime(year, month, day, hour, minute)
     database.add_jam(title, theme, date, duration)
     await interaction.response.send_message(f'{title} with duration {duration} and year {year}')
+
+
+
+@tree.command(name = 'timeleft', description = 'Display the remaining time')
+@discord.app_commands.describe(
+    title = 'Optional title of the jam to show time left. Default is the current jam'
+)
+async def timeleft(
+    interaction: discord.Interaction,
+    title: str = None
+):
+    await interaction.response.send_message(f'Time Left')
+
+
+
+@tree.command(name = 'theme', description = 'Display the theme of the jam')
+@discord.app_commands.describe(
+    title = 'Optional title of the jam to show the theme. Default is the current jam'
+)
+async def theme(
+    interaction: discord.Interaction,
+    title: str = None
+):
+    # Create a checker should not show before the jam
+    await interaction.response.send_message(f'Theme')
+
+
+
+@tree.command(name = 'list', description = 'Display the list of game jams')
+async def list(
+    interaction: discord.Interaction,
+):
+    await interaction.response.send_message(f'List')
+
+
+
+@tree.command(name = 'delete', description = 'Delete a game jam')
+@discord.app_commands.describe(
+    title = 'Title of the jam to delete'
+)
+async def delete(
+    interaction: discord.Interaction,
+    title: str
+):
+    await interaction.response.send_message(f'Delete')
 
 
 

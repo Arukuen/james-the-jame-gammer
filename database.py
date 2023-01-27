@@ -13,7 +13,9 @@ def init():
                 '2 days': [24, 12, 6, 1],
                 '1 week': [72, 24, 12, 6, 1],
                 '2 weeks': [168, 72, 24, 12, 6, 1]
-            }
+            },
+            'game_jammer_role_id': -1,
+            'organizer_roler_id': -1
         }
     }
     with open('data.json', 'w') as f:
