@@ -15,14 +15,15 @@ def init():
                 '2 weeks': [168, 72, 24, 12, 6, 1]
             },
             'game_jammer_role_id': -1,
-            'organizer_roler_id': -1
+            'organizer_roler_id': -1,
+            'discord_channel_id': -1
         }
     }
     with open('data.json', 'w') as f:
         json.dump(data_dict, f, indent = 4)
 
 # Write the input jam in data.json
-def add_jam(title: str, theme: str, date: datetime, duration: str):
+def add_jam(title: str, theme: str, date: datetime, duration: int):
     with open('data.json','r+') as f:
         entry = {'title': title, 'theme': theme, 'date': date.strftime('%Y-%m-%d %H:%M:%S'), 'duration': duration}
         data_dict = json.load(f)
@@ -68,3 +69,5 @@ def fetch_closest()->dict:
 def display():
     print(json.dumps(fetch_all(), indent = 4, sort_keys=True))
 
+init()
+add_jam('test', 'theme', datetime(2022, 12, 23), 2)

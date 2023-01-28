@@ -39,19 +39,29 @@ tree = discord.app_commands.CommandTree(client)
     hour = 'What hour to remind (0-23)',
     minute = 'What minute to remind (0-59)',
 )
+@discord.app_commands.choices(duration = [
+    discord.app_commands.Choice(name = '48 hours', value = 0),
+    discord.app_commands.Choice(name = '1 week', value = 1),
+    discord.app_commands.Choice(name = '2 weeks', value = 2),
+])
+
 async def create_jam(
     interaction: discord.Interaction,
     title: str,
     theme: str,
-    duration: str,
+    duration: discord.app_commands.Choice[int],
     year: int,
     month: int,
     day: int,
     hour: int,
     minute:int,
 ):
-    date = datetime(year, month, day, hour, minute)
-    database.add_jam(title, theme, date, duration)
+    try:
+        date = datetime(year, month, day, hour, minute)
+    except:
+        await interaction.response.send_message(f'Invalid date input')
+        return
+    database.add_jam(title, theme, date, duration.value)
     await interaction.response.send_message(f'{title} with duration {duration} and year {year}')
 
 
