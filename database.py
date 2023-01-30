@@ -15,8 +15,9 @@ def init():
                 '2 weeks': [168, 72, 24, 12, 6, 1]
             },
             'game_jammer_role_id': -1,
-            'organizer_roler_id': -1,
-            'discord_channel_id': -1
+            'organizer_role_id': -1,
+            'guild_id': -1,
+            'channel_id': -1,
         }
     }
     with open('data.json', 'w') as f:
@@ -33,7 +34,7 @@ def add_jam(title: str, theme: str, date: datetime, duration: int):
 
 
 # Retuns the config dictionary
-def fetch_config(is_config = False)->dict:
+def fetch_config()->dict:
     with open('data.json','r') as f:
         config_dict = json.load(f)['config']
         return config_dict
