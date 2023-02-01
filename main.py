@@ -152,7 +152,7 @@ async def timeleft(
     days = delta.days
     hours = delta.seconds // 3600
     minutes = (delta.seconds % 3600) // 60
-    await interaction.response.send_message(f'Time Left: `{days} days, {hours} hours, and {minutes} minutes`')
+    await interaction.response.send_message(f'Time Left: `{days} day(s), {hours} hour(s), and {minutes} minute(s)`')
 
 
 

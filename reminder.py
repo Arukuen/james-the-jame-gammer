@@ -14,7 +14,10 @@ class Reminder:
             print('Done')
             return
         
-        self.reminder_date = self.date_end - timedelta(hours=self.intervals[self.index])
+        delta = timedelta(hours=self.intervals[self.index])
+        self.reminder_date = self.date_end - delta
+        days_left = delta.days
+        hours_left = delta.seconds // 3600
 
         if self.reminder_date <= datetime.now():
             print('Skip')
@@ -22,7 +25,7 @@ class Reminder:
             self.callback()
             return
 
-        self.message = f"Time Check: {self.intervals[self.index]} hours left before the jam ends"
+        self.message = f"Time Check: `{days_left} day(s) and {hours_left} hour(s)` left before the jam ends"
         print(self.intervals[self.index])
         
         # Start the reminder
