@@ -42,6 +42,7 @@ def add_jam(title: str, theme: str, date: datetime, duration: str):
                     'duration': duration,
                 }
         data_dict = json.load(f)
+        data_dict['data'] = []
         data_dict['data'].append(entry)
         f.seek(0)
         json.dump(data_dict, f, indent = 4)
