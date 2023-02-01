@@ -104,11 +104,11 @@ async def set_channel(
     title = 'Title of the jam (should be unique)',
     theme = 'Theme of the jam',
     duration = 'Length of the jam',
-    year = 'What year to remind',
-    month = 'What month to remind (1-12)',
-    day = 'What day to remind (1-31)',
-    hour = 'What hour to remind (0-23)',
-    minute = 'What minute to remind (0-59)',
+    year = 'What year to remind. This should be the date for the end of the jam',
+    month = 'What month to remind (1-12). This should be the date for the end of the jam',
+    day = 'What day to remind (1-31). This should be the date of the end for the jam',
+    hour = 'What hour to remind (0-23). This should be the time of the end for the jam',
+    minute = 'What minute to remind (0-59). This should be the time of the end for the jam',
 )
 @discord.app_commands.choices(duration = [
     discord.app_commands.Choice(name = '2 days', value = '2 days'),
