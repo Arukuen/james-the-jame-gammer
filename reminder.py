@@ -18,10 +18,11 @@ class Reminder:
 
         if self.reminder_date <= datetime.now():
             print('Skip')
+            self.index += 1
+            self.callback()
             return
 
         self.message = f"Time Check: {self.intervals[self.index]} hours left before the jam ends"
-        self.index += 1
         print(self.intervals[self.index])
         
         # Start the reminder
@@ -29,6 +30,8 @@ class Reminder:
             self.task.start()
         else:
             self.task.restart()
+
+        self.index += 1
 
 
     def set_and_start(self, title: str, theme: str, date_end: datetime, intervals: list, channel: discord.TextChannel):
@@ -45,6 +48,12 @@ class Reminder:
 
     def time_left(self)->timedelta:
         return self.date_end - datetime.now()
+
+
+    def force_stop(self):
+        if self.task.is_running():
+            self.task.cancel()
+
 
     @tasks.loop(seconds=5)
     async def task(self):
