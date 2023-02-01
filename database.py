@@ -30,6 +30,7 @@ def set_config(config: str, value: int):
         data_dict['config'][config] = value
         f.seek(0)
         json.dump(data_dict, f, indent = 4)
+        f.truncate()
 
 
 # Add the input jam in data.json
@@ -42,10 +43,10 @@ def add_jam(title: str, theme: str, date: datetime, duration: str):
                     'duration': duration,
                 }
         data_dict = json.load(f)
-        data_dict['data'] = []
-        data_dict['data'].append(entry)
+        data_dict['data'] = [entry]
         f.seek(0)
         json.dump(data_dict, f, indent = 4)
+        f.truncate()
 
 
 # Retuns the config dictionary

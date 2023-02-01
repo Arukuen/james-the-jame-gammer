@@ -34,7 +34,7 @@ class Reminder:
         self.index += 1
 
 
-    def set_and_start(self, title: str, theme: str, date_end: datetime, intervals: list, channel: discord.TextChannel):
+    def set_and_start(self, title: str, theme: str, date_end: datetime, intervals: list, channel: discord.TextChannel, role: discord.Role):
         # Set the reminder
         self.index = 0
         self.title = title
@@ -42,6 +42,7 @@ class Reminder:
         self.date_end = date_end
         self.intervals = sorted(intervals, reverse=True)
         self.channel = channel
+        self.role = role
         # Start the reminder
         self.callback()
 
@@ -61,6 +62,6 @@ class Reminder:
         print(self.reminder_date - datetime.now())
         if datetime.now() >= self.reminder_date:
             print('Reminder done')
-            await self.channel.send(f'{self.message}', allowed_mentions=discord.AllowedMentions(everyone=True))
+            await self.channel.send(f'{self.message} {self.role.mention}', allowed_mentions=discord.AllowedMentions(everyone=True))
             self.task.cancel()
             self.callback()
